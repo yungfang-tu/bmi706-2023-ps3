@@ -34,7 +34,7 @@ st.write("## Age-specific cancer mortality rates")
 
 ### P2.1 ###
 # replace with st.slider
-st.slider(label='Year', 
+year = st.slider(label='Year', 
           min_value=1994, max_value=2020, 
           value=None, step=None, format=None, key=None, help=None, on_change=None, args=None, kwargs=None, 
           disabled=False, label_visibility="visible")
@@ -43,15 +43,13 @@ st.slider(label='Year',
 
 ### P2.2 ###
 # replace with st.radio
-sex = ('M', 'F')
+sex_options = ('M', 'F')
 def sex_internal_function(sex):
     if sex == 'F':
-        return 'female'
-    elif sex == 'M':
-        return 'male'
-    return sex
+        return 'F'
+    return 'M'
 
-st.radio(label='Sex', options = sex, index=0, 
+sex = st.radio(label='Sex', options = sex_options, index=0, 
          format_func=sex_internal_function, 
          key=None, help=None, on_change=None, args=None, kwargs=None, disabled=False, horizontal=False, label_visibility="visible")
 ### P2.2 ###
@@ -66,7 +64,7 @@ countries_sub = ["Austria", "Germany","Iceland","Spain","Sweden","Thailand"]
 def country_internal_function(country):
     return country
 
-st.multiselect(label = 'Countries', options= countries_list, default=countries_sub, 
+countries = st.multiselect(label = 'Countries', options= countries_list, default=countries_sub, 
                format_func=country_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, max_selections=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
 ### P2.3 ###
 
@@ -77,10 +75,12 @@ cancer_list = df['Cancer'].tolist()
 def cancer_internal_function(cancer):
     return cancer
 
-st.selectbox(label='Cancer', options=cancer_list, index=0, 
+cancer = st.selectbox(label='Cancer', options=cancer_list, index=0, 
              format_func=cancer_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
 ### P2.4 ###
 
+# Filter based on user selections
+subset = df[(df['Sex'] == sex) & (df['Country'] == countries) & (df['Cancer'] == cancer)]
 
 ### P2.5 ###
 ages = [
