@@ -34,31 +34,40 @@ st.write("## Age-specific cancer mortality rates")
 
 ### P2.1 ###
 # replace with st.slider
-year = 2012
-subset = df[df["Year"] == year]
+st.slider(label='Year', 
+          min_value=1994, max_value=2020, 
+          value=None, step=None, format=None, key=None, help=None, on_change=None, args=None, kwargs=None, 
+          disabled=False, label_visibility="visible")
 ### P2.1 ###
 
 
 ### P2.2 ###
 # replace with st.radio
-sex = "M"
-subset = subset[subset["Sex"] == sex]
+sex = ('M', 'F')
+def sex_internal_function(sex):
+    if sex == 'F':
+        return 'female'
+    elif sex == 'M':
+        return 'male'
+    return sex
+
+st.radio(label='Sex', option = sex, index=0, 
+         format_func=sex_internal_function, 
+         key=None, help=None, on_change=None, args=None, kwargs=None, disabled=False, horizontal=False, captions=None, label_visibility="visible")
 ### P2.2 ###
 
 
 ### P2.3 ###
 # replace with st.multiselect
 # (hint: can use current hard-coded values below as as `default` for selector)
-countries = [
-    "Austria",
-    "Germany",
-    "Iceland",
-    "Spain",
-    "Sweden",
-    "Thailand",
-    "Turkey",
-]
-subset = subset[subset["Country"].isin(countries)]
+countries_list = df['Countries'].tolist()
+countries_sub = ["Austria", "Germany","Iceland","Spain","Sweden","Thailand"]
+
+def country_internal_function(country):
+    return country
+
+st.multiselect(label = 'Countries', options= countries_list, default=countries_sub, 
+               format_func=country_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, max_selections=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
 ### P2.3 ###
 
 
