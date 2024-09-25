@@ -51,7 +51,7 @@ def sex_internal_function(sex):
         return 'male'
     return sex
 
-st.radio(label='Sex', option = sex, index=0, 
+st.radio(label='Sex', options = sex, index=0, 
          format_func=sex_internal_function, 
          key=None, help=None, on_change=None, args=None, kwargs=None, disabled=False, horizontal=False, captions=None, label_visibility="visible")
 ### P2.2 ###
