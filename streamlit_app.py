@@ -100,6 +100,21 @@ chart = alt.Chart(subset).mark_bar().encode(
 ).properties(
     title=f"{cancer} mortality rates for {'males' if sex == 'M' else 'females'} in {year}",
 )
+
+# Configure common options. 
+base = alt.Chart(subset).encode(
+    x=alt.X("Age", sort=ages),
+    y=alt.Y('Country:N', title='Country'),
+)
+
+# Configure heatmap
+heatmap = base.mark_rect().encode(
+    alt.Color('Rate:Q')
+        .scale(scheme='viridis')
+        .title("Mortality rate per 100k")
+)
+heatmap
+
 ### P2.5 ###
 
 st.altair_chart(chart, use_container_width=True)
