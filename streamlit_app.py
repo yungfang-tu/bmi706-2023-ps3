@@ -92,15 +92,6 @@ ages = [
     "Age >64",
 ]
 
-chart = alt.Chart(subset).mark_bar().encode(
-    x=alt.X("Age", sort=ages),
-    y=alt.Y("Rate", title="Mortality rate per 100k"),
-    color="Country",
-    tooltip=[alt.Tooltip('Rate:Q', title='Rate')],
-).properties(
-    title=f"{cancer} mortality rates for {'males' if sex == 'M' else 'females'} in {year}",
-)
-
 # Configure common options. 
 def log_transform(rate):
     return 0.01 if rate == 0 else rate
@@ -116,9 +107,19 @@ base = alt.Chart(subset).encode(
 heatmap = base.mark_rect().encode(
     alt.Color('log_rate:Q')
         .scale(type='log', domain=[0.01, 100], scheme='blues')
-        .title("Mortality rate per 100k")
-)
+        .title("Mortality rate per 100k"), 
+        tooltip=[alt.Tooltip('Rate:Q', title='Rate: ')]
+).properties(title=f"{cancer} mortality rates for {'males' if sex == 'M' else 'females'} in {year}",)
+
 st.altair_chart(heatmap, use_container_width=True)
+
+
+chart = alt.Chart(subset).mark_bar().encode(
+    x=alt.X('Population:Q', title='Total Population'),
+    y=alt.Y('Country:N', title='Country', sort='-x'),
+    tooltip=[
+        alt.Tooltip('Population:Q', title='Sum of Population: '),
+        alt.Tooltip('Country:N', title='Country')])
 
 ### P2.5 ###
 
