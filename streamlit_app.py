@@ -113,7 +113,7 @@ heatmap = base.mark_rect().encode(
 
 st.altair_chart(heatmap, use_container_width=True)
 
-population_data = subset.groupby('Country')['Population'].sum().reset_index()
+population_data = subset.groupby('Country')['Pop'].sum().reset_index()
 
 chart = alt.Chart(population_data).mark_bar().encode(
     x=alt.X('Population:Q', title='Total Population'),
