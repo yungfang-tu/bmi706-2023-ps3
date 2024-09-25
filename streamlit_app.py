@@ -80,7 +80,7 @@ cancer = st.selectbox(label='Cancer', options=cancer_list, index=0,
 ### P2.4 ###
 
 # Filter based on user selections
-subset = df[(df['Sex'] == sex) & (df['Country'] == countries) & (df['Cancer'] == cancer)]
+subset = df[(df['Sex'] == sex) & (df['Country'].isin(countries)) & (df['Cancer'] == cancer)]
 
 ### P2.5 ###
 ages = [
