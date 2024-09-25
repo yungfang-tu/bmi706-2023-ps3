@@ -73,8 +73,12 @@ st.multiselect(label = 'Countries', options= countries_list, default=countries_s
 
 ### P2.4 ###
 # replace with st.selectbox
-cancer = "Malignant neoplasm of stomach"
-subset = subset[subset["Cancer"] == cancer]
+cancer_list = df['Cancer'].tolist()
+def cancer_internal_function(cancer):
+    return cancer
+
+st.selectbox(label='Cancer', options=cancer_list, index=0, 
+             format_func=cancer_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
 ### P2.4 ###
 
 
