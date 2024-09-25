@@ -60,7 +60,7 @@ st.radio(label='Sex', options = sex, index=0,
 ### P2.3 ###
 # replace with st.multiselect
 # (hint: can use current hard-coded values below as as `default` for selector)
-countries_list = df['Countries'].tolist()
+countries_list = df['Country'].tolist()
 countries_sub = ["Austria", "Germany","Iceland","Spain","Sweden","Thailand"]
 
 def country_internal_function(country):
