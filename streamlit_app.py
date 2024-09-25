@@ -45,38 +45,36 @@ year = st.slider(label='Year',
 # replace with st.radio
 sex_options = ('M', 'F')
 def sex_internal_function(sex):
-    if sex == 'F':
-        return 'F'
-    return 'M'
+    return 'F' if sex == 'F' else 'M'
 
 sex = st.radio(label='Sex', options = sex_options, index=0, 
          format_func=sex_internal_function, 
-         key=None, help=None, on_change=None, args=None, kwargs=None, disabled=False, horizontal=False, label_visibility="visible")
+         label_visibility="visible")
 ### P2.2 ###
 
 
 ### P2.3 ###
 # replace with st.multiselect
 # (hint: can use current hard-coded values below as as `default` for selector)
-countries_list = df['Country'].tolist()
+countries_list = df['Country'].unique().tolist()
 countries_sub = ["Austria", "Germany","Iceland","Spain","Sweden","Thailand"]
 
 def country_internal_function(country):
     return country
 
 countries = st.multiselect(label = 'Countries', options= countries_list, default=countries_sub, 
-               format_func=country_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, max_selections=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
+               format_func=country_internal_function, placeholder="Choose an option", disabled=False, label_visibility="visible")
 ### P2.3 ###
 
 
 ### P2.4 ###
 # replace with st.selectbox
-cancer_list = df['Cancer'].tolist()
+cancer_list = df['Cancer'].unique().tolist()
 def cancer_internal_function(cancer):
     return cancer
 
 cancer = st.selectbox(label='Cancer', options=cancer_list, index=0, 
-             format_func=cancer_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
+             format_func=cancer_internal_function, placeholder="Choose an option", disabled=False, label_visibility="visible")
 ### P2.4 ###
 
 # Filter based on user selections
@@ -98,7 +96,7 @@ chart = alt.Chart(subset).mark_bar().encode(
     x=alt.X("Age", sort=ages),
     y=alt.Y("Rate", title="Mortality rate per 100k"),
     color="Country",
-    tooltip=["Rate"],
+    tooltip=[alt.Tooltip('Rate:Q', title='Rate')],
 ).properties(
     title=f"{cancer} mortality rates for {'males' if sex == 'M' else 'females'} in {year}",
 )
