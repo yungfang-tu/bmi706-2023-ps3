@@ -102,6 +102,11 @@ chart = alt.Chart(subset).mark_bar().encode(
 )
 
 # Configure common options. 
+def log_transform(rate):
+    return 0.01 if rate == 0 else rate
+
+subset['log_rate'] = subset['Rate'].apply(log_transform)
+
 base = alt.Chart(subset).encode(
     x=alt.X("Age", sort=ages),
     y=alt.Y('Country:N', title='Country'),
@@ -109,11 +114,11 @@ base = alt.Chart(subset).encode(
 
 # Configure heatmap
 heatmap = base.mark_rect().encode(
-    alt.Color('Rate:Q')
-        .scale(scheme='viridis')
+    alt.Color('log_rate:Q')
+        .scale(type='log', domain=[0.01, 100], scheme='blues')
         .title("Mortality rate per 100k")
 )
-heatmap
+st.altair_chart(heatmap, use_container_width=True)
 
 ### P2.5 ###
 
