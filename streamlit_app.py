@@ -113,12 +113,12 @@ heatmap = base.mark_rect().encode(
 
 st.altair_chart(heatmap, use_container_width=True)
 
-chart = alt.Chart(subset).mark_bar(color='blue').encode(
+chart = alt.Chart(subset).mark_bar(color='grey').encode(
     x=alt.X('Pop:Q', title='Total Population'),
     y=alt.Y('Country:N', title='Country', sort='-x'),
     tooltip=[
         alt.Tooltip('Pop:Q', title='Sum of Population: '),
-        alt.Tooltip('Country:N', title='Country: ')])
+        alt.Tooltip('Country:N', title='Country: ')]).properties(width=600)
 
 ### P2.5 ###
 
