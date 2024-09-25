@@ -114,7 +114,7 @@ heatmap = base.mark_rect().encode(
 st.altair_chart(heatmap, use_container_width=True)
 
 chart = alt.Chart(subset).mark_bar().encode(
-    x=alt.X('Pop:Q', title='Total Population', scale=alt.Scale(domain=[0, df['Pop'].max()])),
+    x=alt.X('Pop:Q', title='Total Population'),
     y=alt.Y('Country:N', title='Country', sort='-x'),
     tooltip=[
         alt.Tooltip('Pop:Q', title='Sum of Population: '),
