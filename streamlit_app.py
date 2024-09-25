@@ -113,16 +113,12 @@ heatmap = base.mark_rect().encode(
 
 st.altair_chart(heatmap, use_container_width=True)
 
-population_data = subset.groupby('Country')['Pop'].sum().reset_index()
-
-chart = alt.Chart(population_data).mark_bar().encode(
-    x=alt.X('Population:Q', title='Total Population'),
+chart = alt.Chart(subset).mark_bar().encode(
+    x=alt.X('Pop:Q', title='Total Population', scale=alt.Scale(domain=[0, df['Pop'].max()])),
     y=alt.Y('Country:N', title='Country', sort='-x'),
     tooltip=[
-        alt.Tooltip('Population:Q', title='Sum of Population: '),
+        alt.Tooltip('Pop:Q', title='Sum of Population: '),
         alt.Tooltip('Country:N', title='Country: ')])
-
-st.altair_chart(chart, use_container_width=True)
 
 ### P2.5 ###
 
